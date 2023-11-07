@@ -15,5 +15,6 @@ public:
 	friend ofstream& operator << (ofstream& fout, pipe& p);
 	friend ifstream& operator >> (ifstream& fin, pipe& p);
 	void changeinrepair(vector<pipe>& pipes, int index);
+	void deletepipes(vector<pipe>& pipes, vector<pipe>& selectpipes);
 	vector <pipe> selectpipe(vector <pipe> pipes);
 };

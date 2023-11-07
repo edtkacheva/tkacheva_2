@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <algorithm>
 ostream& operator << (ostream& out, pipe& p) {
 	out << "Pipe name: " << p.name << endl;
 	out << "Pipe length: " << p.length << endl;
@@ -28,7 +29,7 @@ ofstream& operator <<(ofstream& fout, pipe& p) {
 }
 ifstream& operator >> (ifstream& fin, pipe& p) {
 	fin >> p.id;
-	fin >> p.name;
+	getline(fin, p.name);
 	fin >> p.length;
 	fin >> p.diameter;
 	fin >> p.inrepair;
@@ -37,6 +38,32 @@ ifstream& operator >> (ifstream& fin, pipe& p) {
 void pipe::changeinrepair(vector<pipe>& pipes, int index) {
 	pipes[index].inrepair = !pipes[index].inrepair;
 	cout << "The status 'under repair' has been changed" << endl;
+}
+void pipe::deletepipes(vector<pipe>& pipes, vector<pipe>& selectpipes) {
+	int action;
+	vector <int> id;
+	cout << "1. Delete all pipes. " << endl
+		<< "2. Select pipes to delete. " << endl
+		<< "Chose action: ";
+	getcorrectnumber(action);
+	while (action < 0 || action > 2) {
+		cout << "Try again!" << endl;
+		getcorrectnumber(action);
+	}
+	if (action == 1) {
+		pipes.clear();
+		cout << "All pipes was deleted. " << endl;
+	}
+	else {
+		for (pipe p : selectpipes) {
+			id.push_back(p.id);
+		}
+		for (pipe p : pipes) {
+			if (contains(id, p.id) {
+				pipes.erase();
+			}
+		}
+	}
 }
 vector<pipe> pipe::selectpipe(vector<pipe> pipes) {
 	int action;
@@ -74,22 +101,4 @@ vector<pipe> pipe::selectpipe(vector<pipe> pipes) {
 		cout << "Pipe wasn't found." << endl;
 	}
 	return selectpipes;
-}
-void deletepipes(vector <pipe>& pipes, ) {
-	int action;
-	cout << "1. Delete all pipes. " << endl
-		<< "2. Select pipes to delete. " << endl
-		<< "Chose action: ";
-	getcorrectnumber(action);
-	while (action < 0 || action > 2) {
-		cout << "Try again!" << endl;
-		getcorrectnumber(action);
-	}
-	if (action == 1) {
-		pipes.clear();
-		cout << "All pipes was deleted. " << endl;
-	}
-	else {
-		selectpipe()
-	}
 }

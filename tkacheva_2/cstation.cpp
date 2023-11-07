@@ -29,7 +29,7 @@ ostream& operator << (ostream& out, cstation& cs) {
 }
 ifstream& operator >> (ifstream& fin, cstation& cs) {
 	fin >> cs.id;
-	fin >> cs.name;
+	getline(fin, cs.name);
 	fin >> cs.workshop;
 	fin >> cs.workingwshop;
 	fin >> cs.efficiency;
