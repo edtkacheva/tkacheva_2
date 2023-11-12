@@ -12,6 +12,10 @@ void getcorrectnumber(T& x) {
 		cin >> x;
 	}
 }
+template<class C, typename T>
+bool contains(C&& c, T t) {
+	return find(begin(c), end(c), t) != end(c);
+};
 void printmenu() {
 	cout << "Menu: " << endl
 		<< "1. Add a pipe." << endl

@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <unordered_map>
 using namespace std;
 class pipe {
 private: 
@@ -10,11 +11,12 @@ public:
 	double length;
 	double diameter;
 	bool inrepair;
+	pipe();
+	void changeinrepair(unordered_map<int, pipe>& pipes);
+	void deletepipes(unordered_map<int, pipe>& pipes);
+	unordered_map<int, int> selectpipe(unordered_map<int, pipe> pipes);
 	friend ostream& operator << (ostream& out, pipe& p);
 	friend istream& operator >> (istream& in, pipe& p);
 	friend ofstream& operator << (ofstream& fout, pipe& p);
 	friend ifstream& operator >> (ifstream& fin, pipe& p);
-	void changeinrepair(vector<pipe>& pipes, int index);
-	void deletepipes(vector<pipe>& pipes, vector<pipe>& selectpipes);
-	vector <pipe> selectpipe(vector <pipe> pipes);
 };

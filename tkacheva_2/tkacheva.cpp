@@ -1,15 +1,14 @@
 #include <iostream>
 #include <fstream>
-#include <vector>
+#include <unordered_map>
 #include <stdio.h>
 #include "pipe.h"
 #include "cstation.h"
 #include "header.h"
 using namespace std;
 int main() {
-	//unordered_map
-	vector <pipe> pipes;
-	vector <cstation> cstations;
+	unordered_map <int, pipe> pipes;
+	unordered_map <int, cstation> cstations;
 	while (true) {
 		printmenu();
 		int choice;
@@ -18,13 +17,13 @@ int main() {
 		case 1: {
 			pipe p;
 			cin >> p;
-			pipes.push_back(p);
+			pipes [pipes.size() + 1] = p;
 			break;
 		}
 		case 2: {
 			cstation cs;
 			cin >> cs;
-			cstations.push_back(cs);
+			cstations [cstations.size() + 1] = cs;
 			break;
 		}
 		case 3: {
@@ -32,8 +31,8 @@ int main() {
 				cout << "There is no data about pipes" << endl;
 			}
 			else {
-				for (pipe p : pipes) {
-					cout << p;
+				for (auto& p : pipes) {
+					cout << p.second;
 				}
 			}
 			break;
@@ -43,8 +42,8 @@ int main() {
 				cout << "There is no data about cstations" << endl;
 			}
 			else {
-				for (cstation cs : cstations) {
-					cout << cs;
+				for (auto& cs : cstations) {
+					cout << cs.second;
 				}
 			}
 			break;
@@ -62,29 +61,29 @@ int main() {
 				else if (pipes.size() == 0 && cstations.size() != 0) {
 					fout << cstations.size() << endl;
 					fout << "Cstations: " << endl;
-					for (cstation cs : cstations) {
-						fout << cs;
+					for (auto& cs : cstations) {
+						fout << cs.second;
 					}
 					cout << "There is no data about pipes." << endl;
 				}
 				else if (pipes.size() != 0 && cstations.size() == 0) {
 					fout << pipes.size() << endl;
 					fout << "Pipes: " << endl;
-					for (pipe p : pipes) {
-						fout << p;
+					for (auto& p : pipes) {
+						fout << p.second;
 					}
 					cout << "There is no data about cstations." << endl;
 				}
 				else {
 					fout << pipes.size();
 					fout << "Pipes: " << endl;
-					for (pipe p : pipes) {
-						fout << p;
+					for (auto& p : pipes) {
+						fout << p.second;
 					}
 					fout << cstations.size();
 					fout << "Cstations: " << endl;
-					for (cstation cs : cstations) {
-						fout << cs;
+					for (auto& cs : cstations) {
+						fout << cs.second;
 					}
 				}
 				cout << "Data was successfully saved." << endl;
@@ -115,14 +114,14 @@ int main() {
 							for (int count{ 0 }; count < i; count++) {
 								pipe p;
 								fin >> p;
-								pipes.push_back(p);
+								pipes[pipes.size() + 1] = p;
 							}
 						}
 						else {
 							for (int count{ 0 }; count < i; count++) {
 								cstation cs;
 								fin >> cs;
-								cstations.push_back(cs);
+								cstations[cstations.size() + 1] = cs;
 							}
 						}
 					} while (!fin.eof());
@@ -131,9 +130,27 @@ int main() {
 			else {
 				cout << "File couldn't be open." << endl;
 			}
+			break;
 		}
 		case 7: {
-			
+			pipe p;
+			p.deletepipes(pipes);
+			break;
+		}
+		case 8: {
+			cstation cs;
+			cs.deletecstations(cstations);
+			break;
+		}
+		case 9: {
+			pipe p;
+			p.changeinrepair(pipes);
+			break;
+		}
+		case 10: {
+			cstation cs;
+			cs.changeworkshops(cstations);
+			break;
 		}
 		case 0: {
 			return 0;
